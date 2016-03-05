@@ -1,0 +1,127 @@
+
+<div class="thymeleafContentContainer" th:fragment="thymeleafContent">
+    <head>
+    	<meta charset="utf-8"/>
+    	<script type="text/javascript" src="../js/project.js"></script>
+    </head>
+     
+	<div class="ui-content jqm-content jqm-fullwidth" role="main">
+		<div>
+			<ul id="autocomplete_searchByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul>
+			<div>
+				 <label id="currentPageIndex"></label>
+			</div>
+			<table>
+				<tr>
+					<td><a href="#page-selector" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="popup" data-position-to="window" data-transition="pop">选择页</a></td>
+					<td><a href="#dialog-element-create" data-rel="popup" data-position-to="window" data-transition="pop" class="btn-searchTrigger ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a></td>
+					<td><a id="pop-up-btn-export-excel" href="#" class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all">导出excel</a></td>
+				</tr>
+			</table>
+			<div data-role="popup" id="page-selector" data-overlay-theme="b" class="ui-content">
+				<table><tr><td>
+					<label id="currentPageIndex1"></label>
+					<input id="element-selector-page" data-clear-btn="]" type="number" onchange="" min="1"/>
+					<label id="currentPageIndex2"></label>
+				</td></tr></table>
+				<a id="element-btn-display-page" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">确定</a>
+				<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">取消</a>
+			</div>
+		</div>
+		
+		<div>
+			<table data-role="table" id="table-element" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="选择列">
+				<thead>
+					<tr>
+						<th data-priority="1">编号</th>
+						<th>工程名称</th>
+						<th data-priority="1">商砼公司编号</th>
+						<th data-priority="100">商砼公司</th>
+						<th data-priority="5">负责人</th>
+						<th data-priority="6">电话</th>
+						<th data-priority="99">结构部位</th>
+						<th data-priority="97">砼标号</th>
+						<th data-priority="98">单价</th>
+						<th>总方量</th>
+						<th>完成方量</th>
+						<th data-priority="96">备注</th>
+						<th data-priority="9">状态</th>
+						<th data-priority="10">修改</th>
+						<th data-priority="11">删除</th>
+					</tr>
+	 			</thead>
+	 			<tbody id="tbProp">
+					
+				</tbody>
+		   </table>
+		</div>
+		
+		<div id="dialog-element-create" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-create-element" data-ajax="false">
+				工程名称<input type="text" id="create-element-name" name="name" placeholder="工程名称" data-clear-btn="true"/>
+				<ul class="autocomplete_searchCustomersByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找商砼公司名" data-filter-theme="d"></ul>
+				商砼公司(编号)<input type="text" id="create-element-customerId" name="customerId" placeholder="商砼公司(编号)" readonly="true"/>
+				商砼公司<input type="text" id="create-element-customerName" name="customerName" placeholder="商砼公司" readonly="true"/>
+				负责人<input type="text" id="create-element-responsiblePersonName" name="responsiblePersonName" placeholder="负责人" data-clear-btn="true"/>
+				电话<input type="text" id="create-element-responsiblePersonPhone" name="responsiblePersonPhone" placeholder="电话" data-clear-btn="true"/>
+				结构部位<input type="text" id="create-element-structure" name="structure" placeholder="结构部位" data-clear-btn="true"/>
+				砼标号<input type="text" id="create-element-tongKind" name="tongKind" placeholder="砼标号" data-clear-btn="true"/>
+				单价<input type="text" id="create-element-utPrice" name="utPrice" placeholder="单价" data-clear-btn="true"/>
+				总方量<input type="text" id="create-element-planVolumn" name="planVolumn" placeholder="总方量" data-clear-btn="true"/>
+				完成方量<input type="text" id="create-element-completedVolumn" name="completedVolumn" placeholder="完成方量" data-clear-btn="true"/>
+				备注<input type="text" id="create-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
+				状态<input type="text" id="create-element-state" value="0" name="state" placeholder="状态" data-clear-btn="true"/>
+				<div data-role="controlgroup" data-type="horizontal" >
+					<a id="btn-create-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">创建</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+		
+		<div id="dialog-element-modify" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-modify-element" data-ajax="false">
+				工程编号<input id="modify-element-id" type="text" name="id" readonly="true"/>
+				工程名称<input type="text" id="modify-element-name" name="name" placeholder="工程名称" data-clear-btn="true"/>
+				<ul class="autocomplete_searchCustomersByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找商砼公司名" data-filter-theme="d"></ul>
+				商砼公司(编号)<input type="text" id="modify-element-customerId" name="customerId" placeholder="商砼公司(编号)" readonly="true"/>
+				商砼公司<input type="text" id="modify-element-customerName" placeholder="商砼公司" readonly="true"/>
+				负责人<input type="text" id="modify-element-responsiblePersonName" name="responsiblePersonName" placeholder="负责人" data-clear-btn="true"/>
+				电话<input type="text" id="modify-element-responsiblePersonPhone" name="responsiblePersonPhone" placeholder="电话" data-clear-btn="true"/>
+				结构部位<input type="text" id="modify-element-structure" name="structure" placeholder="结构部位" data-clear-btn="true"/>
+				砼标号<input type="text" id="modify-element-tongKind" name="tongKind" placeholder="砼标号" data-clear-btn="true"/>
+				单价<input type="text" id="modify-element-utPrice" name="utPrice" placeholder="单价" data-clear-btn="true"/>
+				总方量<input type="text" id="modify-element-planVolumn" name="planVolumn" placeholder="总方量" data-clear-btn="true"/>
+				完成方量<input type="text" id="modify-element-completedVolumn" name="completedVolumn" placeholder="完成方量" data-clear-btn="true"/>
+				备注<input type="text" id="modify-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
+				状态<input type="text" id="modify-element-state" value="0" name="state" placeholder="状态" data-clear-btn="true"/>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a id="btn-modify-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">修改</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+		
+		<div id="dialog-element-delete" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-delete-element" data-ajax="false">
+				工程编号<input type="text" id="delete-element-id" name="id" readonly="true"/>
+				工程名称<input type="text" id="delete-element-name" name="name" placeholder="工程名称" readonly="true"/>
+				商砼公司(编号)<input type="text" id="delete-element-customerId" name="customerId" placeholder="商砼公司(编号)" readonly="true"/>
+				商砼公司<input type="text" id="delete-element-customerName" readonly="true" placeholder="商砼公司"/>
+				负责人<input type="text" id="delete-element-responsiblePersonName" name="responsiblePersonName" placeholder="负责人" readonly="true"/>
+				电话<input type="text" id="delete-element-responsiblePersonPhone" name="responsiblePersonPhone" placeholder="电话" readonly="true"/>
+				结构部位<input type="text" id="delete-element-structure" name="structure" placeholder="结构部位" readonly="true"/>
+				砼标号<input type="text" id="delete-element-tongKind" name="tongKind" placeholder="砼标号" readonly="true"/>
+				单价<input type="text" id="delete-element-utPrice" name="utPrice" placeholder="单价" readonly="true"/>
+				总方量<input type="text" id="delete-element-planVolumn" name="planVolumn" placeholder="总方量" readonly="true"/>
+				完成方量<input type="text" id="delete-element-completedVolumn" name="completedVolumn" placeholder="完成方量" readonly="true"/>
+				备注<input type="text" id="delete-element-description" name="description" placeholder="备注" readonly="true"/>
+				状态<input type="text" id="delete-element-state" value="0" name="state" placeholder="状态" readonly="true"/>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a id="btn-delete-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">删除</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+	</div><!-- /content -->
+	
+</div>

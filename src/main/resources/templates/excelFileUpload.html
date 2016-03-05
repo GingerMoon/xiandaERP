@@ -1,0 +1,33 @@
+
+<div class="thymeleafContentContainer" th:fragment="thymeleafContent">
+    <head>
+    	<meta charset="utf-8"/>
+    	<script type="text/javascript" src="../js/customer.js"></script>
+    </head>
+ 
+ 	<div class="ui-content jqm-content jqm-fullwidth" role="main">
+	    <div data-role="tabs" id="tabs">
+	      <div data-role="navbar">
+	        <ul>
+	          <li><a href="#bussinessInfo" data-ajax="false" class="ui-btn-active">业务信息表</a></li>
+	          <li><a href="#productionPlan" data-ajax="false">生产计划表</a></li>
+	          <li><a href="#carMaintain" data-ajax="false">车辆维修表</a></li>
+	        </ul>
+	      </div>
+	      <div id="bussinessInfo" class="ui-body-d ui-content">
+	        <p>上传电子表格(泵车方量.xlsx)</p>
+	        <form method="POST" enctype="multipart/form-data" action="/excelFileUpload" data-ajax="false">   
+	          <input type="file" name="excelFile" />
+	          <button type="submit">上传</button>
+	        </form>
+	      </div>
+	      <div id="productionPlan" class="ui-body-d ui-content">
+	        <h1>敬请期待</h1>
+	      </div>
+	      <div id="carMaintain" class="ui-body-d ui-content">
+	        <h1>敬请期待...</h1>
+	      </div>
+	    </div>
+	</div>
+</div>
+
