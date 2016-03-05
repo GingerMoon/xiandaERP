@@ -2,7 +2,7 @@
 <div class="thymeleafContentContainer" th:fragment="thymeleafContent">
     <head>
     	<meta charset="utf-8"/>
-    	<script type="text/javascript" src="../js/customer.js"></script>
+    	<script type="text/javascript" src="../js/employee.js"></script>
     </head>
      
 	<div class="ui-content jqm-content jqm-fullwidth" role="main">
@@ -34,11 +34,12 @@
 				<thead>
 					<tr>
 						<th data-priority="1">编号</th>
-						<th>公司名称</th>
-						<th data-priority="2">备注</th>
+						<th>姓名</th>
+						<th data-priority="5">电话</th>
+						<th data-priority="4">备注</th>
 						<th data-priority="3">状态</th>
-						<th data-priority="4">修改</th>
-						<th data-priority="5">删除</th>
+						<th data-priority="2">修改</th>
+						<th data-priority="2">删除</th>
 					</tr>
 	 			</thead>
 	 			<tbody id="tbProp">
@@ -49,7 +50,8 @@
 		
 		<div id="dialog-element-create" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-create-element" data-ajax="false">
-				公司名称<input type="text" id="create-element-name" name="name" placeholder="公司名称" data-clear-btn="true"/>
+				姓名<input type="text" id="create-element-name" name="name" placeholder="姓名" data-clear-btn="true"/>
+				电话<input type="text" id="create-element-phone" name="phone" placeholder="电话" data-clear-btn="true"/>
 				备注<input type="text" id="create-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
 				状态<input type="text" id="create-element-state" name="state" value="0" placeholder="状态" data-clear-btn="true"/>
 				<div data-role="controlgroup" data-type="horizontal" >
@@ -62,7 +64,8 @@
 		<div id="dialog-element-modify" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-modify-element" data-ajax="false">
 				编号<input id="modify-element-id" type="text" name="id" readonly="true"/>
-				公司名称<input id="modify-element-name" type="text" name="name" placeholder="公司名称" data-clear-btn="true"/> 
+				姓名<input id="modify-element-name" type="text" name="name" placeholder="姓名" data-clear-btn="true"/>
+				电话<input type="text" id="modify-element-phone" name="phone" placeholder="电话" data-clear-btn="true"/>
 				备注<input id="modify-element-description" type="text" name="description" placeholder="备注" data-clear-btn="true"/>
 				状态<input id="modify-element-state" type="text" name="state" placeholder="状态" data-clear-btn="true"/>
 				<div data-role="controlgroup" data-type="horizontal">
@@ -75,9 +78,10 @@
 		<div id="dialog-element-delete" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-delete-element" data-ajax="false">
 				编号<input id="delete-element-id" type="text" name="id" readonly="true"/>
-				公司名称<input id="delete-element-name" type="text" placeholder="公司名称" readonly="true"/> 
-				备注<input id="delete-element-description" type="text" placeholder="备注" readonly="true"/>
-				状态<input id="delete-element-state" type="text" placeholder="状态" readonly="true"/>
+				姓名<input id="delete-element-name" type="text"  name="name" readonly="true"/> 
+				电话<input id="delete-element-phone" type="text" name="phone" placeholder="电话" data-clear-btn="true"/>
+				备注<input id="delete-element-description" type="text" readonly="true"/>
+				状态<input id="delete-element-state" type="text" readonly="true"/>
 				<div data-role="controlgroup" data-type="horizontal" >
 					<a id="btn-delete-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">删除</a>
 					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>

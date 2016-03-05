@@ -35,14 +35,14 @@ public class EmployeeJsonBean {
 		employee.setState(new Integer(state));
 		return employee;
 	}
-
+	
 	@JsonProperty("id")
 	public String getId() {
 		return id;
 	}
 
 	public void setId(String id) {
-		this.id = id;
+		this.id = id==""?"-1":id;
 	}
 
 	@JsonProperty("name")
@@ -80,4 +80,5 @@ public class EmployeeJsonBean {
 	public void setState(String state) {
 		this.state = state;
 	}
+
 }
