@@ -45,7 +45,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 		// registry.addConverter(carConverter());
 		// registry.addConverter(employeeConverter());
 		// registry.addConverter(providerConverter());
-		// registry.addFormatter(new DateFormatter(CommonTool.dateFormatStr));
+		registry.addFormatter(new DateFormatter(CommonTool.dateFormatStr));
 	}
 
 //	@Bean

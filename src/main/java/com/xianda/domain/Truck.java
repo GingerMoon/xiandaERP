@@ -1,32 +1,34 @@
 package com.xianda.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Employee {
+public class Truck {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id = -1;
 	private String name = "";
-	private String phone = "";
+	private Date date = new Date();
 	private String description = "";
 	private int state = 0; // by default the state is active(0) 
 
-	public Employee() {
+	public Truck() {
 	}
 
-	protected Employee(long id) {
+	protected Truck(long id) {
 		this.id = id;
 	}
 
-	public Employee(String name, String description, String phone) {
+	public Truck(String name, Date date, String description) {
 		this.name = name;
 		this.description = description;
-		this.phone = phone;
+		this.date = date;
 	}
 
 	public long getId() {
@@ -45,12 +47,12 @@ public class Employee {
 		this.name = name;
 	}
 
-	public String getPhone() {
-		return phone;
+	public Date getDate() {
+		return date;
 	}
 
-	public void setPhone(String phone) {
-		this.phone = phone;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getDescription() {
