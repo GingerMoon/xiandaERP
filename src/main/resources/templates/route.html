@@ -1,0 +1,97 @@
+
+<div class="thymeleafContentContainer" th:fragment="thymeleafContent">
+    <head>
+    	<meta charset="utf-8"/>
+    	<script type="text/javascript" src="../js/route.js"></script>
+    </head>
+     
+	<div class="ui-content jqm-content jqm-fullwidth" role="main">
+		<div>
+			<ul id="autocomplete_searchProjectAddress" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程地址" data-filter-theme="d"></ul>
+			<div>
+				 <label id="currentPageIndex"></label>
+			</div>
+			<table>
+				<tr>
+					<td><a href="#page-selector" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="popup" data-position-to="window" data-transition="pop">选择页</a></td>
+					<td><a href="#dialog-element-create" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a></td>
+					<td><a id="pop-up-btn-export-excel" href="#" class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all">导出excel</a></td>
+				</tr>
+			</table>
+			<div data-role="popup" id="page-selector" data-overlay-theme="b" class="ui-content">
+				<table><tr><td>
+					<label id="currentPageIndex1"></label>
+					<input id="element-selector-page" data-clear-btn="]" type="number" onchange="" min="1"/>
+					<label id="currentPageIndex2"></label>
+				</td></tr></table>
+				<a id="element-btn-display-page" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">确定</a>
+				<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">取消</a>
+			</div>
+		</div>
+		
+		<div>
+			<table data-role="table" id="table-element" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="选择列">
+				<thead>
+					<tr>
+						<th data-priority="1">编号</th>
+						<th>出发地</th>
+						<th>目的地</th>
+						<th>距离</th>
+						<th data-priority="2">备注</th>
+						<th data-priority="3">状态</th>
+						<th data-priority="4">修改</th>
+						<th data-priority="5">删除</th>
+					</tr>
+	 			</thead>
+	 			<tbody id="tbProp">
+					
+				</tbody>
+		   </table>
+		</div>
+		
+		<div id="dialog-element-create" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-create-element" data-ajax="false">
+				出发地<input type="text" id="create-element-departure" name="departure" placeholder="出发地" data-clear-btn="true"/>
+				目的地<input type="text" id="create-element-destination" name="destination" placeholder="目的地" data-clear-btn="true"/>
+				距离<input type="text" id="create-element-distance" name="distance" placeholder="距离" data-clear-btn="true"/>
+				备注<input type="text" id="create-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
+				状态<input type="text" id="create-element-state" name="state" value="0" placeholder="状态" data-clear-btn="true"/>
+				<div data-role="controlgroup" data-type="horizontal" >
+					<a id="btn-create-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">创建</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+		
+		<div id="dialog-element-modify" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-modify-element" data-ajax="false">
+				编号<input id="modify-element-id" type="text" name="id" readonly="true"/>
+				出发地<input id="modify-element-departure" type="text" name="departure" placeholder="出发地" data-clear-btn="true"/> 
+				目的地<input id="modify-element-destination" type="text" name="destination" placeholder="目的地" data-clear-btn="true"/>
+				距离<input type="text" id="modify-element-distance" name="distance" placeholder="距离" data-clear-btn="true"/>
+				备注<input id="modify-element-description" type="text" name="description" placeholder="备注" data-clear-btn="true"/>
+				状态<input id="modify-element-state" type="text" name="state" placeholder="状态" data-clear-btn="true"/>
+				<div data-role="controlgroup" data-type="horizontal">
+					<a id="btn-modify-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">修改</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+		
+		<div id="dialog-element-delete" data-role="popup" data-overlay-theme="b" class="ui-content">
+			<form id="form-delete-element" data-ajax="false">
+				编号<input id="delete-element-id" type="text" name="id" readonly="true"/>
+				出发地<input id="delete-element-departure" type="text" name="departure" placeholder="出发地" readonly="true"/> 
+				目的地<input id="delete-element-destination" type="text" name="destination" placeholder="目的地" readonly="true"/>
+				距离<input id="delete-element-distance" type="text" name="distance" placeholder="距离" readonly="true"/>
+				备注<input id="delete-element-description" type="text" placeholder="备注" readonly="true"/>
+				状态<input id="delete-element-state" type="text" placeholder="状态" readonly="true"/>
+				<div data-role="controlgroup" data-type="horizontal" >
+					<a id="btn-delete-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">删除</a>
+					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
+				</div>
+			</form>
+		</div>
+	</div><!-- /content -->
+	
+</div>

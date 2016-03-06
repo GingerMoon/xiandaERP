@@ -20,6 +20,7 @@ public class ProjectJsonBean { // 13 properties
 	private String name = "";
 	private String responsiblePersonName = "";
 	private String responsiblePersonPhone = "";
+	private String address = "";
 	private String structure = "";
 	private String tongKind = "";
 	private String planVolumn = "0";
@@ -40,6 +41,7 @@ public class ProjectJsonBean { // 13 properties
 		this.name = project.getName();
 		this.responsiblePersonName = project.getResponsiblePersonName();
 		this.responsiblePersonPhone = project.getResponsiblePersonPhone();
+		this.address = project.getAddress();
 		this.structure = project.getStructure();
 		this.tongKind = project.getTongKind();
 		this.planVolumn = new Integer(project.getPlanVolumn()).toString();
@@ -56,6 +58,7 @@ public class ProjectJsonBean { // 13 properties
 		project.setName(name);
 		project.setResponsiblePersonName(responsiblePersonName);
 		project.setResponsiblePersonPhone(responsiblePersonPhone);
+		project.setAddress(address);
 		project.setStructure(structure);
 		project.setTongKind(tongKind);
 		project.setPlanVolumn(new Integer(planVolumn));
@@ -101,6 +104,15 @@ public class ProjectJsonBean { // 13 properties
 
 	public void setResponsiblePersonPhone(String responsiblePersonPhone) {
 		this.responsiblePersonPhone = responsiblePersonPhone;
+	}
+
+	@JsonProperty("address")
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@JsonProperty("structure")

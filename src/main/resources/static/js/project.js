@@ -16,6 +16,7 @@ function receiveData(data) {
 						"<td>" + row.customer.name + "</td>" + 
 						"<td>" + row.responsiblePersonName + "</td>" + 
 						"<td>" + row.responsiblePersonPhone + "</td>" + 
+						"<td>" + row.address + "</td>" + 
 						"<td>" + row.structure + "</td>" + 
 						"<td>" + row.tongKind + "</td>" + 
 						"<td>" + row.utPrice + "</td>" + 
@@ -38,13 +39,14 @@ function receiveData(data) {
 		$("#modify-element-customerName")[0].value = $(this).parent().parent().children()[3].textContent;
 		$("#modify-element-responsiblePersonName")[0].value = $(this).parent().parent().children()[4].textContent;
 		$("#modify-element-responsiblePersonPhone")[0].value = $(this).parent().parent().children()[5].textContent;
-		$("#modify-element-structure")[0].value = $(this).parent().parent().children()[6].textContent;
-		$("#modify-element-tongKind")[0].value = $(this).parent().parent().children()[7].textContent;
-		$("#modify-element-utPrice")[0].value = $(this).parent().parent().children()[8].textContent;
-		$("#modify-element-planVolumn")[0].value = $(this).parent().parent().children()[9].textContent;
-		$("#modify-element-completedVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
-		$("#modify-element-description")[0].value = $(this).parent().parent().children()[11].textContent;
-		$("#modify-element-state")[0].value = $(this).parent().parent().children()[12].textContent;
+		$("#modify-element-address")[0].value = $(this).parent().parent().children()[6].textContent;
+		$("#modify-element-structure")[0].value = $(this).parent().parent().children()[7].textContent;
+		$("#modify-element-tongKind")[0].value = $(this).parent().parent().children()[8].textContent;
+		$("#modify-element-utPrice")[0].value = $(this).parent().parent().children()[9].textContent;
+		$("#modify-element-planVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
+		$("#modify-element-completedVolumn")[0].value = $(this).parent().parent().children()[11].textContent;
+		$("#modify-element-description")[0].value = $(this).parent().parent().children()[12].textContent;
+		$("#modify-element-state")[0].value = $(this).parent().parent().children()[13].textContent;
 		$("#dialog-element-modify").popup("open");
     });
     
@@ -55,13 +57,14 @@ function receiveData(data) {
     	$("#delete-element-customerName")[0].value = $(this).parent().parent().children()[3].textContent;
 		$("#delete-element-responsiblePersonName")[0].value = $(this).parent().parent().children()[4].textContent;
 		$("#delete-element-responsiblePersonPhone")[0].value = $(this).parent().parent().children()[5].textContent;
-		$("#delete-element-structure")[0].value = $(this).parent().parent().children()[6].textContent;
-		$("#delete-element-tongKind")[0].value = $(this).parent().parent().children()[7].textContent;
-		$("#delete-element-utPrice")[0].value = $(this).parent().parent().children()[8].textContent;
-		$("#delete-element-planVolumn")[0].value = $(this).parent().parent().children()[9].textContent;
-		$("#delete-element-completedVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
-		$("#delete-element-description")[0].value = $(this).parent().parent().children()[11].textContent;
-		$("#delete-element-state")[0].value = $(this).parent().parent().children()[12].textContent;
+		$("#delete-element-address")[0].value = $(this).parent().parent().children()[6].textContent;
+		$("#delete-element-structure")[0].value = $(this).parent().parent().children()[7].textContent;
+		$("#delete-element-tongKind")[0].value = $(this).parent().parent().children()[8].textContent;
+		$("#delete-element-utPrice")[0].value = $(this).parent().parent().children()[9].textContent;
+		$("#delete-element-planVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
+		$("#delete-element-completedVolumn")[0].value = $(this).parent().parent().children()[11].textContent;
+		$("#delete-element-description")[0].value = $(this).parent().parent().children()[12].textContent;
+		$("#delete-element-state")[0].value = $(this).parent().parent().children()[13].textContent;
 		$("#dialog-element-delete").popup("open");
     });
 	

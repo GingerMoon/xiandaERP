@@ -89,4 +89,14 @@ public class ProjectService {
 		results.add(e);
 		return results;
 	}
+
+	public List<ProjectJsonBean> searchByAddress(String address) {
+		List<Project> projects = this.projectRepository.searchByAddress("%"+address+"%", new PageRequest(0, 20)).getContent();
+		List<ProjectJsonBean> results = new ArrayList<ProjectJsonBean>();
+		for(int i = 0; i < projects.size(); i++) {
+			ProjectJsonBean element = new ProjectJsonBean(projects.get(i));
+			results.add(element);
+		}
+		return results;
+	}
 }

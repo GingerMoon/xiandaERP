@@ -25,6 +25,7 @@ public class Project {
 	private String name = "";
 	private String responsiblePersonName = "";
 	private String responsiblePersonPhone = "";
+	private String address = "";
 	private String structure = "";
 	private String tongKind = "";
 	private int planVolumn = 0;
@@ -73,6 +74,14 @@ public class Project {
 
 	public void setResponsiblePersonPhone(String responsiblePersonPhone) {
 		this.responsiblePersonPhone = responsiblePersonPhone;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getStructure() {
