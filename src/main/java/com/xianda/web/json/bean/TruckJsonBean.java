@@ -5,6 +5,7 @@
 package com.xianda.web.json.bean;
 
 import java.text.ParseException;
+import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.xianda.CommonTool;
@@ -30,11 +31,16 @@ public class TruckJsonBean {
 		this.state = Integer.toString(truck.getState());
 	}
 	
-	public Truck truck() throws ParseException {
+	public Truck truck() {
 		Truck truck = new Truck();
 		truck.setId(Long.parseLong(this.id));
 		truck.setName(this.name);
-		truck.setDate(CommonTool.dateFormat.parse(this.date));
+		try {
+			truck.setDate(CommonTool.dateFormat.parse(this.date));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			truck.setDate(new Date());
+		}
 		truck.setDescription(description);
 		truck.setState(new Integer(state));
 		return truck;

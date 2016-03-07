@@ -19,12 +19,12 @@ public interface CustomerRepository extends PagingAndSortingRepository<Customer,
 	
 	Customer findById(long id);
 
-	@Query("select count(*) from Customer c where c.state=0")
+	@Query("select count(*) from Customer e where e.state=0")
 	long countActive();
 
-	@Query("select c from Customer c where c.state=0")
+	@Query("select e from Customer e where e.state=0")
 	Page<Customer> findAllActive(Pageable pageable);
 
-	@Query("select c from Customer c where c.name LIKE :name")
+	@Query("select e from Customer e where e.name LIKE :name")
 	Page<Customer> searchByName(@Param("name")String name, Pageable pageable);
 }
