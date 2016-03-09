@@ -19,7 +19,7 @@ public class Customer {
 	private long id = -1;
 	private String name = "";
 	private String description = "";
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	private List<Project> projects = new ArrayList<Project>();
 	private int state = 0; // by default the state is active(0) 
 

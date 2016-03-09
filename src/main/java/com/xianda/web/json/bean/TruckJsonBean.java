@@ -22,7 +22,11 @@ public class TruckJsonBean {
 	public TruckJsonBean() {
 		
 	}
-	
+
+	public TruckJsonBean(String id) {
+		this.id = id;
+	}
+
 	public TruckJsonBean(Truck truck) {
 		this.id = new Long(truck.getId()).toString();
 		this.name = truck.getName();

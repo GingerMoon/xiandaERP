@@ -40,7 +40,6 @@ public class ProjectController {
 		ListJsonResponse<ProjectJsonBean> results;
 		List<ProjectJsonBean> lists;
 		try {
-			long projectCount = projectService.count();
 			lists = projectService.findAll(tbStartIndex, tbPageSize);
 			results = new ListJsonResponse<ProjectJsonBean>("OK", lists, tbStartIndex, projectService.count());
 		} catch (Exception e) {
@@ -56,7 +55,6 @@ public class ProjectController {
 		ListJsonResponse<ProjectJsonBean> results;
 		List<ProjectJsonBean> lists;
 		try {
-			long projectCount = projectService.count();
 			lists = projectService.findById(id);
 			results = new ListJsonResponse<ProjectJsonBean>("OK", lists, 0, 1);
 		} catch (Exception e) {

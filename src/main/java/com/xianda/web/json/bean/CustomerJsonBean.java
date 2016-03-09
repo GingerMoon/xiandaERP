@@ -16,6 +16,10 @@ public class CustomerJsonBean {
 	public CustomerJsonBean() {
 		
 	}
+
+	public CustomerJsonBean(String id) {
+		this.id = id;
+	}
 	
 	public CustomerJsonBean(Customer customer) {
 		this.id = new Long(customer.getId()).toString();

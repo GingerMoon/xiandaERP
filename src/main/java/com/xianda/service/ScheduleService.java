@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.xianda.domain.Schedule;
 import com.xianda.exception.BusinessException;
+import com.xianda.repository.ProjectRepository;
 import com.xianda.repository.ScheduleRepository;
 import com.xianda.web.json.bean.ScheduleJsonBean;
 
@@ -24,6 +25,8 @@ public class ScheduleService {
 
 	@Autowired
 	ScheduleRepository scheduleRepository;
+	@Autowired
+	ProjectRepository projectRepository;
 
 	public long count() {
 		return this.scheduleRepository.count();
@@ -41,6 +44,7 @@ public class ScheduleService {
 
 	public void add(ScheduleJsonBean jsnScheduleBean) {
 		Schedule entity = jsnScheduleBean.schedule();
+		entity.setProject(this.projectRepository.findById(entity.getProject().getId()));
 		this.scheduleRepository.save(entity);
 	}
 

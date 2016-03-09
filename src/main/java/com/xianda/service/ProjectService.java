@@ -44,11 +44,13 @@ public class ProjectService {
 
 	public void add(ProjectJsonBean jsnProjectBean) {
 		Project entity = jsnProjectBean.project();
+		entity.setCustomer(this.customerRepository.findById(entity.getCustomer().getId()));
 		this.projectRepository.save(entity);
 	}
 
 	public void update(ProjectJsonBean projectBean) {
 		Project entity = projectBean.project();
+		entity.setCustomer(this.customerRepository.findById(entity.getCustomer().getId()));
 		this.projectRepository.save(entity);
 		
 	}

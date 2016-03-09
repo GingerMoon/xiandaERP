@@ -26,14 +26,16 @@ public class ProjectJsonBean { // 13 properties
 	private String planVolumn = "0";
 	private String completedVolumn = "0";
 	private String utPrice = "0";
-	private CustomerJsonBean customrJsonBean = new CustomerJsonBean();
-	private String customerId = customrJsonBean.getId();
+	private CustomerJsonBean customer = new CustomerJsonBean();
 	private String description = "";
 	private String state = "0";
 
 
 	public ProjectJsonBean() {
-		
+	}
+	
+	public ProjectJsonBean(String id) {
+		this.id = id;
 	}
 	
 	public ProjectJsonBean(Project project) {
@@ -47,7 +49,7 @@ public class ProjectJsonBean { // 13 properties
 		this.planVolumn = new Integer(project.getPlanVolumn()).toString();
 		this.completedVolumn = new Integer(project.getCompletedVolumn()).toString();
 		this.utPrice = new Integer(project.getUtPrice()).toString();
-		this.customrJsonBean = new CustomerJsonBean(project.getCustomer());
+		this.customer = new CustomerJsonBean(project.getCustomer());
 		this.description = project.getDescription();
 		this.state = Integer.toString(project.getState());
 	}
@@ -64,7 +66,7 @@ public class ProjectJsonBean { // 13 properties
 		project.setPlanVolumn(new Integer(planVolumn));
 		project.setCompletedVolumn(new Integer(completedVolumn));
 		project.setUtPrice(new Integer(utPrice));
-		project.setCustomer(customrJsonBean.customer());
+		project.setCustomer(customer.customer());
 		project.setDescription(description);
 		project.setState(new Integer(state));
 		return project;
@@ -161,21 +163,12 @@ public class ProjectJsonBean { // 13 properties
 	}
 
 	@JsonProperty("customer")
-	public CustomerJsonBean getCustomrJsonBean() {
-		return customrJsonBean;
+	public CustomerJsonBean getCustomer() {
+		return customer;
 	}
 
-	public void setCustomrJsonBean(CustomerJsonBean customrJsonBean) {
-		this.customrJsonBean = customrJsonBean;
-	}
-	
-//	@JsonProperty("customerId")
-	public String getCustomerId() {
-		return customrJsonBean.getId();
-	}
-
-	public void setCustomerId(String customerId) {
-		this.customrJsonBean.setId(customerId);
+	public void setCustomer(CustomerJsonBean customer) {
+		this.customer = customer;
 	}
 
 	@JsonProperty("description")

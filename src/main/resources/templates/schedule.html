@@ -56,25 +56,25 @@
 		
 		<div id="dialog-element-create" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-create-element" data-ajax="false">
-				<ul id="autocomplete_searchProjectByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul>
-				<ul id="autocomplete_searchTruckByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找车辆" data-filter-theme="d"></ul>
-				<ul id="autocomplete_searchEmployeeByName1" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul>
-				<ul id="autocomplete_searchEmployeeByName2" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul>
+				<div><ul id="autocomplete_searchProjectByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul></div>
+				<div><ul id="autocomplete_searchTruckByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找车辆" data-filter-theme="d"></ul></div>
+				<div><ul id="autocomplete_searchEmployeeByName1" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
+				<div><ul id="autocomplete_searchEmployeeByName2" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
 				
 				日期<input type="date" id="create-element-date" name="date" placeholder="日期" data-clear-btn="true"/>
 				
-				工程编号<input type="text" id="create-element-projectId" name="projectId" placeholder="工程编号" readonly="true"/>
+				<input style="display:none;" type="text" id="create-element-projectId" name="project" placeholder="工程编号" readonly="true"/>
 				商砼公司<input type="text" id="create-element-projectCustomerName" placeholder="商砼公司" readonly="true"/>
 				工程名称<input type="text" id="create-element-projectName" placeholder="工程名称" readonly="true"/>
 				方量<input type="text" id="create-element-volumn" name="volumn" placeholder="方量" data-clear-btn="true"/>
 				
-				车辆编号<input type="text" id="create-element-truckId" name="truckId" placeholder="车辆编号" readonly="true"/>
+				<input style="display:none;" type="text" id="create-element-truckId" name="truck" placeholder="车辆编号" readonly="true"/>
 				车号<input type="text" id="create-element-truckName" placeholder="车号" readonly="true"/>
 				
-				员工1<input type="text" id="create-element-employee1Id" placeholder="员工1" readonly="true"/>
+				<input style="display:none;" type="text" id="create-element-employee1Id" name="employees[0]" placeholder="员工1" readonly="true"/>
 				员工1姓名<input type="text" id="create-element-employee1Name" placeholder="姓名" readonly="true"/>
 				
-				员工2<input type="text" id="create-element-employee2Id" name="employee2Id" placeholder="员工2" readonly="true"/>
+				<input style="display:none;" type="text" id="create-element-employee2Id" name="employees[1]" placeholder="员工2" readonly="true"/>
 				员工2姓名<input type="text" id="create-element-employee2Name" placeholder="姓名" readonly="true"/>
 				备注<input type="text" id="create-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
 				状态<input type="text" id="create-element-state" name="state" value="0" placeholder="状态" data-clear-btn="true"/>

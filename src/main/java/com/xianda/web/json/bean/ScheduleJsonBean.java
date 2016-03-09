@@ -21,13 +21,7 @@ public class ScheduleJsonBean {
 	private String description = "";
 	private String state = "0";
 	private ProjectJsonBean project = new ProjectJsonBean();
-	private String projectId = "-1";
 	private TruckJsonBean truck = new TruckJsonBean();
-	private String truckId = "-1";
-	private EmployeeJsonBean employee1 = new EmployeeJsonBean();
-	private String employee1Id = "-1";
-	private EmployeeJsonBean employee2 = new EmployeeJsonBean();
-	private String employee2Id = "-1";
 	private List<EmployeeJsonBean> employees = new ArrayList<EmployeeJsonBean>();
 	
 	public ScheduleJsonBean() {
@@ -47,8 +41,6 @@ public class ScheduleJsonBean {
 			EmployeeJsonBean e_json = new EmployeeJsonBean(e);
 			this.employees.add(e_json);
 		}
-		this.employee1 = this.employees.get(0);
-		this.employee2 = this.employees.get(1);
 	}
 	
 	public Schedule schedule() {
@@ -145,24 +137,4 @@ public class ScheduleJsonBean {
 	public void setEmployees(List<EmployeeJsonBean> employees) {
 		this.employees = employees;
 	}
-
-	@JsonProperty("employee1")
-	public EmployeeJsonBean getEmployee1() {
-		return employee1;
-	}
-
-	public void setEmployee1(EmployeeJsonBean employee1) {
-		this.employee1 = employee1;
-	}
-
-	@JsonProperty("employee2")
-	public EmployeeJsonBean getEmployee2() {
-		return employee2;
-	}
-
-	public void setEmployee2(EmployeeJsonBean employee2) {
-		this.employee2 = employee2;
-	}
-
-	
 }

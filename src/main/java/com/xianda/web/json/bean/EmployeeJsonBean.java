@@ -18,6 +18,10 @@ public class EmployeeJsonBean {
 		
 	}
 	
+	public EmployeeJsonBean(String id) {
+		this.id = id;
+	}
+
 	public EmployeeJsonBean(Employee employee) {
 		this.id = new Long(employee.getId()).toString();
 		this.name = employee.getName();
