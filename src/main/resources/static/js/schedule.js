@@ -3,8 +3,8 @@ var model_table;
 function receiveData(data) {
 	model_table = data.Records;
 	
-	pageTotalCount = (Math.floor(data.TotalRecordCount/11)+1);
-	StartIndex = data.StartIndex+1;
+	pageTotalCount = data.TotalRecordCount == 0 ? 0 : (Math.floor(data.TotalRecordCount/11)+1);
+	StartIndex = data.TotalRecordCount == 0 ? 0 : data.StartIndex+1;
 	$("#element-selector-page")[0].max = pageTotalCount;
 	$("#element-selector-page")[0].value = (Math.floor(data.StartIndex/11)+1);;
 	$("#currentPageIndex")[0].textContent= "显示第" + StartIndex + "页，总共有" + pageTotalCount + "页。";

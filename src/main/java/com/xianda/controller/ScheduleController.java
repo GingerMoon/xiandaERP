@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +20,6 @@ import com.xianda.CommonTool;
 import com.xianda.annotation.Layout;
 import com.xianda.service.ScheduleService;
 import com.xianda.web.json.bean.ScheduleJsonBean;
-import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
 @Controller
@@ -52,7 +50,6 @@ public class ScheduleController {
 			e1.printStackTrace();
 		}
 		try {
-			long scheduleCount = scheduleService.count(beginD, endD);
 			lists = scheduleService.findAll(beginD, endD, tbStartIndex, tbPageSize);
 			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, tbStartIndex, scheduleService.count(beginD, endD));
 		} catch (Exception e) {
@@ -68,7 +65,6 @@ public class ScheduleController {
 		ListJsonResponse<ScheduleJsonBean> results;
 		List<ScheduleJsonBean> lists;
 		try {
-			long scheduleCount = scheduleService.count();
 			lists = scheduleService.findById(id);
 			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, 0, 1);
 		} catch (Exception e) {
