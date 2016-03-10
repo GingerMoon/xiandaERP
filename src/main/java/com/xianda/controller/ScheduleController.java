@@ -1,6 +1,8 @@
 package com.xianda.controller;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xianda.CommonTool;
 import com.xianda.annotation.Layout;
 import com.xianda.service.ScheduleService;
 import com.xianda.web.json.bean.ScheduleJsonBean;
@@ -36,13 +39,22 @@ public class ScheduleController {
 
 	@RequestMapping(value = "/get", method = RequestMethod.GET)
 	@ResponseBody
-	public ListJsonResponse<ScheduleJsonBean> get(@RequestParam int tbStartIndex, @RequestParam int tbPageSize) {
+	public ListJsonResponse<ScheduleJsonBean> get(@RequestParam String beginDate, @RequestParam String endDate, @RequestParam int tbStartIndex, @RequestParam int tbPageSize) {
 		ListJsonResponse<ScheduleJsonBean> results;
 		List<ScheduleJsonBean> lists;
+		Date beginD; Date endD;
 		try {
-			long scheduleCount = scheduleService.count();
-			lists = scheduleService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, tbStartIndex, scheduleService.count());
+			beginD = CommonTool.dateFormat.parse(beginDate);
+			endD = CommonTool.dateFormat.parse(endDate);
+		} catch (ParseException e1) {
+			beginD = new Date();
+			endD = new Date();
+			e1.printStackTrace();
+		}
+		try {
+			long scheduleCount = scheduleService.count(beginD, endD);
+			lists = scheduleService.findAll(beginD, endD, tbStartIndex, tbPageSize);
+			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, tbStartIndex, scheduleService.count(beginD, endD));
 		} catch (Exception e) {
 			results = new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
@@ -77,32 +89,32 @@ public class ScheduleController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (scheduleService.count()/11), 10);
+		return get(jsnScheduleBean.getDate(), jsnScheduleBean.getDate(), (int)(scheduleService.count()/11), 10);
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
-	public ListJsonResponse<ScheduleJsonBean> update(@ModelAttribute ScheduleJsonBean scheduleBean, BindingResult result) {
+	public ListJsonResponse<ScheduleJsonBean> update(@ModelAttribute ScheduleJsonBean jsnScheduleBean, BindingResult result) {
 		if (result.hasErrors()) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", "Form invalid");
 		}
 		try {
-			scheduleService.update(scheduleBean);
+			scheduleService.update(jsnScheduleBean);
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (scheduleService.count()/11), 10);
+		return get(jsnScheduleBean.getDate(), jsnScheduleBean.getDate(), (int)(scheduleService.count()/11), 10);
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
 	@ResponseBody
-	public ListJsonResponse<ScheduleJsonBean> remove(@RequestParam String id) {
+	public ListJsonResponse<ScheduleJsonBean> remove(@RequestParam String date, @RequestParam String id) {
 		try {
 			scheduleService.delete(new Long(id));
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (scheduleService.count()/11), 10);
+		return get(date, date, (int)(scheduleService.count()/11), 10);
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)

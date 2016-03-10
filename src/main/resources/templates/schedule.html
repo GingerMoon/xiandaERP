@@ -7,6 +7,13 @@
      
 	<div class="ui-content jqm-content jqm-fullwidth" role="main">
 		<div>
+			<table>
+				<tr>
+					<td><input class="date" id="search-date-begin" name="date"/></td>
+					<td><input class="date" id="search-date-end" name="date"/></td>
+					<td><button id="btn-filter-by-date" class="ui-btn ui-corner-all">查询</button></td>
+				</tr>
+			</table>
 			<div>
 				 <label id="currentPageIndex"></label>
 			</div>
@@ -119,7 +126,7 @@
 		<div id="dialog-element-delete" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-delete-element" data-ajax="false">
 				编号<input type="text" id="delete-element-id" name="id" placeholder="编号" readonly="true"/>
-				日期<input type="date" id="delete-element-date" placeholder="日期" readonly="true"/>
+				日期<input type="date" id="delete-element-date" name="date" placeholder="日期" readonly="true"/>
 				
 				<input style="display:none;" type="text" id="delete-element-projectId" placeholder="工程编号" readonly="true"/>
 				商砼公司<input type="text" id="delete-element-projectCustomerName" placeholder="商砼公司" readonly="true"/>

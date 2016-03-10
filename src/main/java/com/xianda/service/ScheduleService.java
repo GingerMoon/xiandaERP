@@ -2,6 +2,7 @@ package com.xianda.service;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -31,9 +32,13 @@ public class ScheduleService {
 	public long count() {
 		return this.scheduleRepository.count();
 	}
+	
+	public long count(Date beginDate, Date endDate) {
+		return this.scheduleRepository.count(beginDate, endDate);
+	}
 
-	public List<ScheduleJsonBean> findAll(int tbPageIndex, int tbPageSize) {
-		List<Schedule> schedules = this.scheduleRepository.findAll(new PageRequest(tbPageIndex, tbPageSize)).getContent();
+	public List<ScheduleJsonBean> findAll(Date beginDate, Date endDate, int tbPageIndex, int tbPageSize) {
+		List<Schedule> schedules = this.scheduleRepository.findAll(beginDate, endDate, new PageRequest(tbPageIndex, tbPageSize)).getContent();
 		List<ScheduleJsonBean> results = new ArrayList<ScheduleJsonBean>();
 		for(int i = 0; i < schedules.size(); i++) {
 			ScheduleJsonBean element = new ScheduleJsonBean(schedules.get(i));

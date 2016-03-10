@@ -180,8 +180,16 @@ function searchEmployeeByName( e, data ) {
 
 var StartIndex = 1;
 var pageTotalCount = 1;
+var beginDate = "";
+var endDate = "";
+
 $( document ).on( "pageinit", "#myPage", function() {
-$.get("/schedule/get?tbStartIndex=0&tbPageSize=10", null, receiveData);
+	$("#btn-filter-by-date").on( "click", function( event ) {
+		beginDate = $("#search-date-begin").val();
+		endDate = $("#search-date-end").val();
+		$.get("/schedule/get?beginDate=" + beginDate + "&endDate=" + endDate + "&tbStartIndex=0&tbPageSize=10", null, receiveData);
+	});
+	
     
     $( "#element-btn-display-page" ).on( "click", function( event ) {
 		var page = $("#element-selector-page").val();
@@ -189,7 +197,7 @@ $.get("/schedule/get?tbStartIndex=0&tbPageSize=10", null, receiveData);
 			page = pageTotalCount;
 		}
 		StartIndex = page;
-		$.get("/schedule/get?tbStartIndex=" + (page-1) + "&tbPageSize=10", null, receiveData);
+		$.get("/schedule/get?beginDate=" + beginDate + "&endDate=" + endDate + "&tbStartIndex=" + (page-1) + "&tbPageSize=10", null, receiveData);
 		$(this).parent().popup("close");
 	});
     
