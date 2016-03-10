@@ -50,6 +50,7 @@ public class ScheduleService {
 
 	public void update(ScheduleJsonBean scheduleBean) {
 		Schedule entity = scheduleBean.schedule();
+		entity.setProject(this.projectRepository.findById(entity.getProject().getId()));
 		this.scheduleRepository.save(entity);
 		
 	}

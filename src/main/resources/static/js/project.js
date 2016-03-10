@@ -154,7 +154,7 @@ $.get("/project/get?tbStartIndex=0&tbPageSize=10", null, receiveData);
     
     $( "#btn-create-element" ).on( "click", function( event ) {
     	$.post("/project/add?" + $("#form-create-element").serialize(), null, receiveData);
-//    	$("#form-create-element")[0].reset();
+    	$("#form-create-element")[0].reset();
     	$(this).parent().parent().parent().parent().popup("close");
 	});
     

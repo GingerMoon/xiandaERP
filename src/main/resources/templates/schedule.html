@@ -7,7 +7,6 @@
      
 	<div class="ui-content jqm-content jqm-fullwidth" role="main">
 		<div>
-			<ul id="autocomplete_searchByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找客户" data-filter-theme="d"></ul>
 			<div>
 				 <label id="currentPageIndex"></label>
 			</div>
@@ -39,8 +38,8 @@
 						<th data-priority="98">工程名称</th>
 						<th data-priority="97">结构部位</th>
 						<th data-priority="96">砼标号</th>
-						<th data-priority="100">方量</th>
 						<th data-priority="101">车号</th>
+						<th data-priority="100">方量</th>
 						<th data-priority="102">员工</th>
 						<th data-priority="2">备注</th>
 						<th data-priority="3">状态</th>
@@ -56,12 +55,12 @@
 		
 		<div id="dialog-element-create" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-create-element" data-ajax="false">
-				<div><ul id="autocomplete_searchProjectByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul></div>
-				<div><ul id="autocomplete_searchTruckByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找车辆" data-filter-theme="d"></ul></div>
-				<div><ul id="autocomplete_searchEmployeeByName1" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
-				<div><ul id="autocomplete_searchEmployeeByName2" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchProjectByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchTruckByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找车辆" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchEmployeeByName1" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchEmployeeByName2" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
 				
-				日期<input type="date" id="create-element-date" name="date" placeholder="日期" data-clear-btn="true"/>
+				日期<input type="date" id="create-element-date" name="date"/>
 				
 				<input style="display:none;" type="text" id="create-element-projectId" name="project" placeholder="工程编号" readonly="true"/>
 				商砼公司<input type="text" id="create-element-projectCustomerName" placeholder="商砼公司" readonly="true"/>
@@ -87,12 +86,31 @@
 		
 		<div id="dialog-element-modify" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-modify-element" data-ajax="false">
-				编号<input id="modify-element-id" type="text" name="id" readonly="true"/>
-				公司名称<input id="modify-element-name" type="text" name="name" placeholder="公司名称" data-clear-btn="true"/> 
-				备注<input id="modify-element-description" type="text" name="description" placeholder="备注" data-clear-btn="true"/>
-				状态<input id="modify-element-state" type="text" name="state" placeholder="状态" data-clear-btn="true"/>
-				<div data-role="controlgroup" data-type="horizontal">
-					<a id="btn-modify-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">修改</a>
+				<div><ul class="autocomplete_searchProjectByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找工程" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchTruckByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找车辆" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchEmployeeByName1" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
+				<div><ul class="autocomplete_searchEmployeeByName2" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找员工" data-filter-theme="d"></ul></div>
+				
+				编号<input type="text" id="modify-element-id" name="id" placeholder="编号" data-clear-btn="true"/>
+				日期<input type="date" id="modify-element-date" name="date" placeholder="日期" data-clear-btn="true"/>
+				
+				<input style="display:none;" type="text" id="modify-element-projectId" name="project" placeholder="工程编号" readonly="true"/>
+				商砼公司<input type="text" id="modify-element-projectCustomerName" placeholder="商砼公司" readonly="true"/>
+				工程名称<input type="text" id="modify-element-projectName" placeholder="工程名称" readonly="true"/>
+				方量<input type="text" id="modify-element-volumn" name="volumn" placeholder="方量" data-clear-btn="true"/>
+				
+				<input style="display:none;" type="text" id="modify-element-truckId" name="truck" placeholder="车辆编号" readonly="true"/>
+				车号<input type="text" id="modify-element-truckName" placeholder="车号" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="modify-element-employee1Id" name="employees[0]" placeholder="员工1" readonly="true"/>
+				员工1姓名<input type="text" id="modify-element-employee1Name" placeholder="姓名" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="modify-element-employee2Id" name="employees[1]" placeholder="员工2" readonly="true"/>
+				员工2姓名<input type="text" id="modify-element-employee2Name" placeholder="姓名" readonly="true"/>
+				备注<input type="text" id="modify-element-description" name="description" placeholder="备注" data-clear-btn="true"/>
+				状态<input type="text" id="modify-element-state" name="state" value="0" placeholder="状态" data-clear-btn="true"/>
+				<div data-role="controlgroup" data-type="horizontal" >
+					<a id="btn-modify-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">创建</a>
 					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>
 				</div>
 			</form>
@@ -100,10 +118,24 @@
 		
 		<div id="dialog-element-delete" data-role="popup" data-overlay-theme="b" class="ui-content">
 			<form id="form-delete-element" data-ajax="false">
-				编号<input id="delete-element-id" type="text" name="id" readonly="true"/>
-				公司名称<input id="delete-element-name" type="text" placeholder="公司名称" readonly="true"/> 
-				备注<input id="delete-element-description" type="text" placeholder="备注" readonly="true"/>
-				状态<input id="delete-element-state" type="text" placeholder="状态" readonly="true"/>
+				编号<input type="text" id="delete-element-id" name="id" placeholder="编号" readonly="true"/>
+				日期<input type="date" id="delete-element-date" placeholder="日期" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="delete-element-projectId" placeholder="工程编号" readonly="true"/>
+				商砼公司<input type="text" id="delete-element-projectCustomerName" placeholder="商砼公司" readonly="true"/>
+				工程名称<input type="text" id="delete-element-projectName" placeholder="工程名称" readonly="true"/>
+				方量<input type="text" id="delete-element-volumn" placeholder="方量" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="delete-element-truckId" placeholder="车辆编号" readonly="true"/>
+				车号<input type="text" id="delete-element-truckName" placeholder="车号" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="delete-element-employee1Id" placeholder="员工1" readonly="true"/>
+				员工1姓名<input type="text" id="delete-element-employee1Name" placeholder="姓名" readonly="true"/>
+				
+				<input style="display:none;" type="text" id="delete-element-employee2Id" placeholder="员工2" readonly="true"/>
+				员工2姓名<input type="text" id="delete-element-employee2Name" placeholder="姓名" readonly="true"/>
+				备注<input type="text" id="delete-element-description" placeholder="备注" readonly="true"/>
+				状态<input type="text" id="delete-element-state" value="0" placeholder="状态" readonly="true"/>
 				<div data-role="controlgroup" data-type="horizontal" >
 					<a id="btn-delete-element" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">删除</a>
 					<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">取消</a>

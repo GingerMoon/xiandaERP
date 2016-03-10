@@ -83,7 +83,6 @@ public class ScheduleController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<ScheduleJsonBean> update(@ModelAttribute ScheduleJsonBean scheduleBean, BindingResult result) {
-		JsonResponse<ScheduleJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", "Form invalid");
 		}
