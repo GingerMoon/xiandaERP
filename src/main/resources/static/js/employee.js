@@ -1,15 +1,25 @@
+var model_table;
+var StartIndex = 1;
+
 function receiveData(data) {
-	pageTotalCount = (Math.floor(data.TotalRecordCount/11)+1);
-	StartIndex = data.StartIndex+1;
-	$("#element-selector-page")[0].max = pageTotalCount;
-	$("#element-selector-page")[0].value = (Math.floor(data.StartIndex/11)+1);;
-	$("#currentPageIndex")[0].textContent= "显示第" + StartIndex + "页，总共有" + pageTotalCount + "页。";
-	$("#currentPageIndex1")[0].textContent= "显示第";
-	$("#currentPageIndex2")[0].textContent= "页，总共有" + pageTotalCount + "页。";
+	model_table = data.Records;
+	if(data.Result != "ok") {
+		$("#dialog-error-msg").popup("open");
+		$("#error-msg").html(data.Message);
+	}
+		
+	var pageTotalCount = data.Records.length == 0 ? 0 : (Math.floor(data.Records.length/11)+1);
+	StartIndex = data.TotalRecordCount == 0 ? 0 : data.StartIndex+1;
+	$("#element-selector-page").max = pageTotalCount;
+	$("#element-selector-page").value = data.StartIndex + 1;
+	if(pageTotalCount != 0)
+		$("#msg").html("显示第" + StartIndex + "页，总共有" + pageTotalCount + "页");
+	else
+		$("#msg").html("没有数据,请重新查询！");
 
 	newBody = "";
 	$.each(data.Records, function(i, row) {
-		var newRow = "<tr>" + 
+		var newRow = "<tr rowId='" + i + "'>" +  
 						"<td>" + row.id + "</td>" + 
 						"<td>" + row.name + "</td>" + 
 						"<td>" + row.phone + "</td>" + 
@@ -24,20 +34,20 @@ function receiveData(data) {
 	$('#table-element').table("refresh");
 	
 	$(".btn-edit").on("click", function(event) {
-		$("#modify-element-id")[0].value = $(this).parent().parent().children()[0].textContent;
-		$("#modify-element-name")[0].value = $(this).parent().parent().children()[1].textContent;
-		$("#modify-element-phone")[0].value = $(this).parent().parent().children()[2].textContent;
-		$("#modify-element-description")[0].value = $(this).parent().parent().children()[3].textContent;
-		$("#modify-element-state")[0].value = $(this).parent().parent().children()[4].textContent;
+		$("#modify-element-id")[0].value = model_table[$(this).parent().parent().attr("rowId")].id;
+		$("#modify-element-name")[0].value = model_table[$(this).parent().parent().attr("rowId")].name;
+		$("#modify-element-phone")[0].value = model_table[$(this).parent().parent().attr("rowId")].phone;
+		$("#modify-element-description")[0].value = model_table[$(this).parent().parent().attr("rowId")].description;
+		$("#modify-element-state")[0].value = model_table[$(this).parent().parent().attr("rowId")].state;
 		$("#dialog-element-modify").popup("open");
     });
     
     $(".btn-delete").on("click", function(event) {
-    	$("#delete-element-id")[0].value = $(this).parent().parent().children()[0].textContent;
-    	$("#delete-element-name")[0].value = $(this).parent().parent().children()[1].textContent;
-    	$("#delete-element-phone")[0].value = $(this).parent().parent().children()[2].textContent;
-    	$("#delete-element-description")[0].value = $(this).parent().parent().children()[3].textContent;
-    	$("#delete-element-state")[0].value = $(this).parent().parent().children()[4].textContent;;
+    	$("#delete-element-id")[0].value = model_table[$(this).parent().parent().attr("rowId")].id;
+    	$("#delete-element-name")[0].value = model_table[$(this).parent().parent().attr("rowId")].name;
+    	$("#delete-element-phone")[0].value = model_table[$(this).parent().parent().attr("rowId")].phone;
+    	$("#delete-element-description")[0].value = model_table[$(this).parent().parent().attr("rowId")].description;
+    	$("#delete-element-state")[0].value = model_table[$(this).parent().parent().attr("rowId")].state;
 		$("#dialog-element-delete").popup("open");
     });
 }
@@ -74,35 +84,30 @@ function searchByName( e, data ) {
     });
 };
 
+function getData() {
+	var tbStartIndex = $("#element-selector-page").val() - 1;
+	$.get("/employee/get?tbStartIndex=" + tbStartIndex + "&tbPageSize=10", null, receiveData);
+}
 
-var StartIndex = 1;
-var pageTotalCount = 1;
 $( document ).on( "pageinit", "#myPage", function() {
-$.get("/employee/get?tbStartIndex=0&tbPageSize=10", null, receiveData);
     
-    $( "#element-btn-display-page" ).on( "click", function( event ) {
-		var page = $("#element-selector-page").val();
-		if(page > pageTotalCount) {
-			page = pageTotalCount;
-		}
-		StartIndex = page;
-		$.get("/employee/get?tbStartIndex=" + (page-1) + "&tbPageSize=10", null, receiveData);
-		$(this).parent().popup("close");
+    $( "#btn-get-data" ).on( "click", function( event ) {
+		getData();
 	});
     
     $( "#btn-create-element" ).on( "click", function( event ) {
-    	$.post("/employee/add?" + $("#form-create-element").serialize(), null, receiveData);
+    	$.post("/employee/add?" + $("#form-create-element").serialize(), null, function() {getData();});
     	$("#form-create-element")[0].reset();
 		$(this).parent().parent().parent().parent().popup("close");
 	});
     
     $( "#btn-modify-element" ).on( "click", function( event ) {
-    	$.post("/employee/update?" + $('#form-modify-element').serialize(), null, receiveData);
+    	$.post("/employee/update?" + $('#form-modify-element').serialize(), null, function() {getData();});
     	$(this).parent().parent().parent().parent().popup("close");
 	});
     
     $( "#btn-delete-element" ).on( "click", function( event ) {
-		$.post("/employee/remove?" + $('#form-modify-element').serialize(), null, receiveData);
+		$.post("/employee/remove?" + $('#form-delete-element').serialize(), null, function() {getData();});
 		$(this).parent().parent().parent().parent().popup("close");
 	});
     

@@ -18,6 +18,16 @@
 		
 		<script src="../jquery_mobile/datepicker-zh-CN.js" type="text/javascript"></script>
 		
+		<style>
+			input:-moz-read-only { /* For Firefox */
+			    background-color: yellow;
+			}
+			
+			input:read-only {
+			    background-color: yellow;
+			}
+		</style>
+		
 		<script>
 			function clickNav(id) {
 				window.location.href = "../" + id;

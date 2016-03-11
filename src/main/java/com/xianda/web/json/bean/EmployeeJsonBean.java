@@ -23,6 +23,7 @@ public class EmployeeJsonBean {
 	}
 
 	public EmployeeJsonBean(Employee employee) {
+		if(employee == null) return;
 		this.id = new Long(employee.getId()).toString();
 		this.name = employee.getName();
 		this.phone = employee.getPhone();

@@ -23,12 +23,18 @@ public class ScheduleJsonBean {
 	private ProjectJsonBean project = new ProjectJsonBean();
 	private TruckJsonBean truck = new TruckJsonBean();
 	private List<EmployeeJsonBean> employees = new ArrayList<EmployeeJsonBean>();
+	private RouteJsonBean route = new RouteJsonBean();
 	
 	public ScheduleJsonBean() {
 		
 	}
 	
+	public ScheduleJsonBean(String Id) {
+		this.id = id;
+	}
+
 	public ScheduleJsonBean(Schedule schedule) {
+		if(schedule == null) return;
 		this.id = new Long(schedule.getId()).toString();
 		this.date = CommonTool.dateFormat.format(schedule.getDate());
 		this.volumn = new Integer(schedule.getVolumn()).toString();
@@ -41,6 +47,7 @@ public class ScheduleJsonBean {
 			EmployeeJsonBean e_json = new EmployeeJsonBean(e);
 			this.employees.add(e_json);
 		}
+		this.route = new RouteJsonBean(schedule.getRoute());
 	}
 	
 	public Schedule schedule() {
@@ -63,6 +70,7 @@ public class ScheduleJsonBean {
 		}
 		schedule.setEmployees(employees);
 		
+		schedule.setRoute(this.route.route());
 		return schedule;
 	}
 	
@@ -137,4 +145,14 @@ public class ScheduleJsonBean {
 	public void setEmployees(List<EmployeeJsonBean> employees) {
 		this.employees = employees;
 	}
+
+	@JsonProperty("route")
+	public RouteJsonBean getRoute() {
+		return route;
+	}
+
+	public void setRoute(RouteJsonBean route) {
+		this.route = route;
+	}
+	
 }

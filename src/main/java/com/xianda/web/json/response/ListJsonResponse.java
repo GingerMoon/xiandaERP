@@ -4,36 +4,31 @@
  */
 package com.xianda.web.json.response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class ListJsonResponse <T> {
 
-	private String Result;
-	private List<T> Records;
-	private long StartIndex;
-	private long TotalRecordCount;
-	private String Message;
+	private String Result = "ok";
+	private List<T> Records = new ArrayList<T>();
+	private long StartIndex = 0;
+	private String Message = "";
 
 	
 	public ListJsonResponse() {
+		
 	}
-
-	public ListJsonResponse(String Result) {
-		this.Result = Result;
-	}
-
+	
 	public ListJsonResponse(String Result, List<T> Records) {
 		this.Result = Result;
 		this.Records = Records;
 	}
 
-	public ListJsonResponse(String Result, List<T> Records, long StartIndex, long TotalRecordCount) {
-		this.Result = Result;
+	public ListJsonResponse(List<T> Records, long StartIndex) {
 		this.Records = Records;
 		this.StartIndex = StartIndex;
-		this.TotalRecordCount = TotalRecordCount;
 	}
 	
 	public ListJsonResponse(String Result, String Message) {
@@ -66,15 +61,6 @@ public class ListJsonResponse <T> {
 
 	public void setStartIndex(int StartIndex) {
 		this.StartIndex = StartIndex;
-	}
-	
-	@JsonProperty("TotalRecordCount")
-	public long getTotalRecordCount() {
-		return TotalRecordCount;
-	}
-
-	public void setTotalRecordCount(int TotalRecordCount) {
-		this.TotalRecordCount = TotalRecordCount;
 	}
 	
 	@JsonProperty("Message")

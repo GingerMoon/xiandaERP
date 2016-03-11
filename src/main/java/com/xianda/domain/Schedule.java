@@ -12,8 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Schedule {
@@ -34,6 +32,9 @@ public class Schedule {
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
 	private List<Employee> employees = new ArrayList<Employee>();
+
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+	private Route route = new Route();
 	
 	public Schedule() {
 	}
@@ -106,5 +107,11 @@ public class Schedule {
 		this.employees = employees;
 	}
 
-	
+	public Route getRoute() {
+		return route;
+	}
+
+	public void setRoute(Route route) {
+		this.route = route;
+	}
 }

@@ -7,26 +7,31 @@
      
 	<div class="ui-content jqm-content jqm-fullwidth" role="main">
 		<div>
-			<ul id="autocomplete_searchByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找客户" data-filter-theme="d"></ul>
-			<div>
-				 <label id="currentPageIndex"></label>
+			<table><tr>
+				<td>
+					<ul id="autocomplete_searchByName" data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="查找客户" data-filter-theme="d"></ul>
+				</td>
+				<td><button id="btn-get-data" class="ui-btn ui-corner-all">查询</button></td>
+			</tr></table>
+			
+			<table><tr>
+				<td>输入页码:</td>
+				<td><input id="element-selector-page" value="1" data-clear-btn="]" type="number" onchange="" min="1"/></td>
+				<td>(比如输入1将查询第一页数据):</td>
+			</tr></table>
+			
+			<div id="msg"></div>
+			<div id="dialog-error-msg" data-role="popup" data-overlay-theme="b" class="ui-content">
+				<div id="error-msg"></div>
+				<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow ui-icon-delete" data-rel="back">OK</a>
 			</div>
+		
 			<table>
 				<tr>
-					<td><a href="#page-selector" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="popup" data-position-to="window" data-transition="pop">选择页</a></td>
-					<td><a href="#dialog-element-create" data-rel="popup" data-position-to="window" data-transition="pop" class="ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a></td>
+					<td><a href="#dialog-element-create" data-rel="popup" data-position-to="window" data-transition="pop" class="btn-searchTrigger ui-btn ui-icon-plus ui-btn-icon-notext ui-corner-all">No text</a></td>
 					<td><a id="pop-up-btn-export-excel" href="#" class="ui-btn ui-icon-mail ui-btn-icon-notext ui-corner-all">导出excel</a></td>
 				</tr>
 			</table>
-			<div data-role="popup" id="page-selector" data-overlay-theme="b" class="ui-content">
-				<table><tr><td>
-					<label id="currentPageIndex1"></label>
-					<input id="element-selector-page" data-clear-btn="]" type="number" onchange="" min="1"/>
-					<label id="currentPageIndex2"></label>
-				</td></tr></table>
-				<a id="element-btn-display-page" href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow">确定</a>
-				<a href="#" class="ui-btn ui-btn-inline ui-mini ui-corner-all ui-shadow" data-rel="back">取消</a>
-			</div>
 		</div>
 		
 		<div>

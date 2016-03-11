@@ -1,15 +1,25 @@
+var model_table;
+var StartIndex = 1;
+
 function receiveData(data) {
-	pageTotalCount = (Math.floor(data.TotalRecordCount/11)+1);
-	StartIndex = data.StartIndex+1;
-	$("#element-selector-page")[0].max = pageTotalCount;
-	$("#element-selector-page")[0].value = (Math.floor(data.StartIndex/11)+1);;
-	$("#currentPageIndex")[0].textContent= "显示第" + StartIndex + "页，总共有" + pageTotalCount + "页。";
-	$("#currentPageIndex1")[0].textContent= "显示第";
-	$("#currentPageIndex2")[0].textContent= "页，总共有" + pageTotalCount + "页。";
+	model_table = data.Records;
+	if(data.Result != "ok") {
+		$("#dialog-error-msg").popup("open");
+		$("#error-msg").html(data.Message);
+	}
+		
+	var pageTotalCount = data.Records.length == 0 ? 0 : (Math.floor(data.Records.length/11)+1);
+	StartIndex = data.TotalRecordCount == 0 ? 0 : data.StartIndex+1;
+	$("#element-selector-page").max = pageTotalCount;
+	$("#element-selector-page").value = data.StartIndex + 1;
+	if(pageTotalCount != 0)
+		$("#msg").html("显示第" + StartIndex + "页，总共有" + pageTotalCount + "页");
+	else
+		$("#msg").html("没有数据,请重新查询！");
 
 	newBody = "";
 	$.each(data.Records, function(i, row) {
-		var newRow = "<tr>" + 
+		var newRow = "<tr rowId='" + i + "'>" +  
 						"<td>" + row.id + "</td>" + 
 						"<td>" + row.name + "</td>" + 
 						"<td>" + row.customer.id + "</td>" + 
@@ -33,38 +43,38 @@ function receiveData(data) {
 	$('#table-element').table("refresh");
 	
 	$(".btn-edit").on("click", function(event) {
-		$("#modify-element-id")[0].value = $(this).parent().parent().children()[0].textContent;
-		$("#modify-element-name")[0].value = $(this).parent().parent().children()[1].textContent;
-		$("#modify-element-customerId")[0].value = $(this).attr("customerID");
-		$("#modify-element-customerName")[0].value = $(this).parent().parent().children()[3].textContent;
-		$("#modify-element-responsiblePersonName")[0].value = $(this).parent().parent().children()[4].textContent;
-		$("#modify-element-responsiblePersonPhone")[0].value = $(this).parent().parent().children()[5].textContent;
-		$("#modify-element-address")[0].value = $(this).parent().parent().children()[6].textContent;
-		$("#modify-element-structure")[0].value = $(this).parent().parent().children()[7].textContent;
-		$("#modify-element-tongKind")[0].value = $(this).parent().parent().children()[8].textContent;
-		$("#modify-element-utPrice")[0].value = $(this).parent().parent().children()[9].textContent;
-		$("#modify-element-planVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
-		$("#modify-element-completedVolumn")[0].value = $(this).parent().parent().children()[11].textContent;
-		$("#modify-element-description")[0].value = $(this).parent().parent().children()[12].textContent;
-		$("#modify-element-state")[0].value = $(this).parent().parent().children()[13].textContent;
+		$("#modify-element-id")[0].value = model_table[$(this).parent().parent().attr("rowId")].id;
+		$("#modify-element-name")[0].value = model_table[$(this).parent().parent().attr("rowId")].name;
+		$("#modify-element-customerId")[0].value = model_table[$(this).parent().parent().attr("rowId")].customer.id;
+		$("#modify-element-customerName")[0].value = model_table[$(this).parent().parent().attr("rowId")].customer.name;
+		$("#modify-element-responsiblePersonName")[0].value = model_table[$(this).parent().parent().attr("rowId")].responsiblePersonName;
+		$("#modify-element-responsiblePersonPhone")[0].value = model_table[$(this).parent().parent().attr("rowId")].responsiblePersonPhone;
+		$("#modify-element-address")[0].value = model_table[$(this).parent().parent().attr("rowId")].address;
+		$("#modify-element-structure")[0].value = model_table[$(this).parent().parent().attr("rowId")].structure;
+		$("#modify-element-tongKind")[0].value = model_table[$(this).parent().parent().attr("rowId")].tongKind;
+		$("#modify-element-utPrice")[0].value = model_table[$(this).parent().parent().attr("rowId")].utPrice;
+		$("#modify-element-planVolumn")[0].value = model_table[$(this).parent().parent().attr("rowId")].planVolumn;
+		$("#modify-element-completedVolumn")[0].value = model_table[$(this).parent().parent().attr("rowId")].completedVolumn;
+		$("#modify-element-description")[0].value = model_table[$(this).parent().parent().attr("rowId")].description;
+		$("#modify-element-state")[0].value = model_table[$(this).parent().parent().attr("rowId")].state;
 		$("#dialog-element-modify").popup("open");
     });
     
     $(".btn-delete").on("click", function(event) {
-    	$("#delete-element-id")[0].value = $(this).parent().parent().children()[0].textContent;
-    	$("#delete-element-name")[0].value = $(this).parent().parent().children()[1].textContent;
-    	$("#delete-element-customerId")[0].value = $(this).attr("customerID");
-    	$("#delete-element-customerName")[0].value = $(this).parent().parent().children()[3].textContent;
-		$("#delete-element-responsiblePersonName")[0].value = $(this).parent().parent().children()[4].textContent;
-		$("#delete-element-responsiblePersonPhone")[0].value = $(this).parent().parent().children()[5].textContent;
-		$("#delete-element-address")[0].value = $(this).parent().parent().children()[6].textContent;
-		$("#delete-element-structure")[0].value = $(this).parent().parent().children()[7].textContent;
-		$("#delete-element-tongKind")[0].value = $(this).parent().parent().children()[8].textContent;
-		$("#delete-element-utPrice")[0].value = $(this).parent().parent().children()[9].textContent;
-		$("#delete-element-planVolumn")[0].value = $(this).parent().parent().children()[10].textContent;
-		$("#delete-element-completedVolumn")[0].value = $(this).parent().parent().children()[11].textContent;
-		$("#delete-element-description")[0].value = $(this).parent().parent().children()[12].textContent;
-		$("#delete-element-state")[0].value = $(this).parent().parent().children()[13].textContent;
+    	$("#delete-element-id")[0].value = model_table[$(this).parent().parent().attr("rowId")].id;
+		$("#delete-element-name")[0].value = model_table[$(this).parent().parent().attr("rowId")].name;
+		$("#delete-element-customerId")[0].value = model_table[$(this).parent().parent().attr("rowId")].customer.id;
+		$("#delete-element-customerName")[0].value = model_table[$(this).parent().parent().attr("rowId")].customer.name;
+		$("#delete-element-responsiblePersonName")[0].value = model_table[$(this).parent().parent().attr("rowId")].responsiblePersonName;
+		$("#delete-element-responsiblePersonPhone")[0].value = model_table[$(this).parent().parent().attr("rowId")].responsiblePersonPhone;
+		$("#delete-element-address")[0].value = model_table[$(this).parent().parent().attr("rowId")].address;
+		$("#delete-element-structure")[0].value = model_table[$(this).parent().parent().attr("rowId")].structure;
+		$("#delete-element-tongKind")[0].value = model_table[$(this).parent().parent().attr("rowId")].tongKind;
+		$("#delete-element-utPrice")[0].value = model_table[$(this).parent().parent().attr("rowId")].utPrice;
+		$("#delete-element-planVolumn")[0].value = model_table[$(this).parent().parent().attr("rowId")].planVolumn;
+		$("#delete-element-completedVolumn")[0].value = model_table[$(this).parent().parent().attr("rowId")].completedVolumn;
+		$("#delete-element-description")[0].value = model_table[$(this).parent().parent().attr("rowId")].description;
+		$("#delete-element-state")[0].value = model_table[$(this).parent().parent().attr("rowId")].state;
 		$("#dialog-element-delete").popup("open");
     });
 	
@@ -137,34 +147,32 @@ function searchCustomersByName( e, data ) {
     });
 };
 
-var StartIndex = 1;
-var pageTotalCount = 1;
+function getData() {
+	beginDate = $("#search-date-begin").val();
+	endDate = $("#search-date-end").val();
+	var tbStartIndex = $("#element-selector-page").val() - 1;
+	$.get("/project/get?beginDate=" + beginDate + "&endDate=" + endDate + "&tbStartIndex=" + tbStartIndex + "&tbPageSize=10", null, receiveData);
+}
+
 $( document ).on( "pageinit", "#myPage", function() {
-$.get("/project/get?tbStartIndex=0&tbPageSize=10", null, receiveData);
     
-    $( "#element-btn-display-page" ).on( "click", function( event ) {
-		var page = $("#element-selector-page").val();
-		if(page > pageTotalCount) {
-			page = pageTotalCount;
-		}
-		StartIndex = page;
-		$.get("/project/get?tbStartIndex=" + (page-1) + "&tbPageSize=10", null, receiveData);
-		$(this).parent().popup("close");
+    $( "#btn-get-data" ).on( "click", function( event ) {
+		getData();
 	});
     
     $( "#btn-create-element" ).on( "click", function( event ) {
-    	$.post("/project/add?" + $("#form-create-element").serialize(), null, receiveData);
+    	$.post("/project/add?" + $("#form-create-element").serialize(), null, function() {getData();});
     	$("#form-create-element")[0].reset();
     	$(this).parent().parent().parent().parent().popup("close");
 	});
     
     $( "#btn-modify-element" ).on( "click", function( event ) {
-		$.post("/project/update?" + $('#form-modify-element').serialize(), null, receiveData);
+    	$.post("/project/update?" + $('#form-modify-element').serialize(), null, function() {getData();});
 		$(this).parent().parent().parent().parent().popup("close");
 	});
     
     $( "#btn-delete-element" ).on( "click", function( event ) {
-    	$.post("/project/remove?" + $('#form-delete-element').serialize(), null, receiveData);
+		$.post("/project/remove?" + $('#form-delete-element').serialize(), null, function() {getData();});
 		$(this).parent().parent().parent().parent().popup("close");
 	});
     

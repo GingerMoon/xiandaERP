@@ -39,6 +39,7 @@ public class ProjectJsonBean { // 13 properties
 	}
 	
 	public ProjectJsonBean(Project project) {
+		if(project == null) return;
 		this.id = new Long(project.getId()).toString();
 		this.name = project.getName();
 		this.responsiblePersonName = project.getResponsiblePersonName();

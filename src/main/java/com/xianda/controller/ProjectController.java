@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xianda.annotation.Layout;
 import com.xianda.service.ProjectService;
 import com.xianda.web.json.bean.ProjectJsonBean;
-import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
 @Controller
@@ -41,7 +39,7 @@ public class ProjectController {
 		List<ProjectJsonBean> lists;
 		try {
 			lists = projectService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<ProjectJsonBean>("OK", lists, tbStartIndex, projectService.count());
+			results = new ListJsonResponse<ProjectJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
 		}
@@ -56,7 +54,7 @@ public class ProjectController {
 		List<ProjectJsonBean> lists;
 		try {
 			lists = projectService.findById(id);
-			results = new ListJsonResponse<ProjectJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<ProjectJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
 		}
@@ -75,13 +73,12 @@ public class ProjectController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (projectService.count()/11), 10);
+		return new ListJsonResponse<ProjectJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<ProjectJsonBean> update(@ModelAttribute ProjectJsonBean projectBean, BindingResult result) {
-		JsonResponse<ProjectJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<ProjectJsonBean>("ERROR", "Form invalid");
 		}
@@ -90,7 +87,7 @@ public class ProjectController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (projectService.count()/11), 10);
+		return new ListJsonResponse<ProjectJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -101,7 +98,7 @@ public class ProjectController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (projectService.count()/11), 10);
+		return new ListJsonResponse<ProjectJsonBean>();
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)

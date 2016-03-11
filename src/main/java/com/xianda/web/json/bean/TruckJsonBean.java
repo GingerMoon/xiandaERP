@@ -28,6 +28,7 @@ public class TruckJsonBean {
 	}
 
 	public TruckJsonBean(Truck truck) {
+		if(truck == null) return;
 		this.id = new Long(truck.getId()).toString();
 		this.name = truck.getName();
 		this.date = CommonTool.dateFormat.format(truck.getDate());

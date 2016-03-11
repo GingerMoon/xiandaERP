@@ -10,6 +10,7 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.xianda.domain.Project;
 import com.xianda.domain.Route;
 import com.xianda.web.json.bean.RouteJsonBean;
 
@@ -24,4 +25,7 @@ public interface RouteRepository extends PagingAndSortingRepository<Route, Long>
 
 	@Query("select e from Route e where e.state=0")
 	Page<Route> findAllActive(Pageable pageable);
+
+	@Query("select e from Route e where e.departure LIKE :departure and e.destination LIKE :destination")
+	Page<Route> findByDepartureAndDestination(@Param("departure")String departure,@Param("destination")String destination, Pageable pageable);
 }

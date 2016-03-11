@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xianda.annotation.Layout;
 import com.xianda.service.CustomerService;
 import com.xianda.web.json.bean.CustomerJsonBean;
-import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
 @Controller
@@ -40,9 +38,8 @@ public class CustomerController {
 		ListJsonResponse<CustomerJsonBean> results;
 		List<CustomerJsonBean> lists;
 		try {
-			long customerCount = customerService.count();
 			lists = customerService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<CustomerJsonBean>("OK", lists, tbStartIndex, customerService.count());
+			results = new ListJsonResponse<CustomerJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<CustomerJsonBean>("ERROR", e.getMessage());
 		}
@@ -56,9 +53,8 @@ public class CustomerController {
 		ListJsonResponse<CustomerJsonBean> results;
 		List<CustomerJsonBean> lists;
 		try {
-			long customerCount = customerService.count();
 			lists = customerService.findById(id);
-			results = new ListJsonResponse<CustomerJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<CustomerJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<CustomerJsonBean>("ERROR", e.getMessage());
 		}
@@ -77,13 +73,12 @@ public class CustomerController {
 		} catch (Exception e) {
 			return new ListJsonResponse<CustomerJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (customerService.count()/11), 10);
+		return new ListJsonResponse<CustomerJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<CustomerJsonBean> update(@ModelAttribute CustomerJsonBean customerBean, BindingResult result) {
-		JsonResponse<CustomerJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<CustomerJsonBean>("ERROR", "Form invalid");
 		}
@@ -92,7 +87,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			return new ListJsonResponse<CustomerJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (customerService.count()/11), 10);
+		return new ListJsonResponse<CustomerJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -103,7 +98,7 @@ public class CustomerController {
 		} catch (Exception e) {
 			return new ListJsonResponse<CustomerJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (customerService.count()/11), 10);
+		return new ListJsonResponse<CustomerJsonBean>();
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)

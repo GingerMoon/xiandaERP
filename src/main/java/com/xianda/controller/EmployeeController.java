@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xianda.annotation.Layout;
 import com.xianda.service.EmployeeService;
 import com.xianda.web.json.bean.EmployeeJsonBean;
+import com.xianda.web.json.bean.ScheduleJsonBean;
 import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
@@ -40,9 +41,8 @@ public class EmployeeController {
 		ListJsonResponse<EmployeeJsonBean> results;
 		List<EmployeeJsonBean> lists;
 		try {
-			long employeeCount = employeeService.count();
 			lists = employeeService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<EmployeeJsonBean>("OK", lists, tbStartIndex, employeeService.count());
+			results = new ListJsonResponse<EmployeeJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<EmployeeJsonBean>("ERROR", e.getMessage());
 		}
@@ -56,9 +56,8 @@ public class EmployeeController {
 		ListJsonResponse<EmployeeJsonBean> results;
 		List<EmployeeJsonBean> lists;
 		try {
-			long employeeCount = employeeService.count();
 			lists = employeeService.findById(id);
-			results = new ListJsonResponse<EmployeeJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<EmployeeJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<EmployeeJsonBean>("ERROR", e.getMessage());
 		}
@@ -77,13 +76,12 @@ public class EmployeeController {
 		} catch (Exception e) {
 			return new ListJsonResponse<EmployeeJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (employeeService.count()/11), 10);
+		return new ListJsonResponse<EmployeeJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<EmployeeJsonBean> update(@ModelAttribute EmployeeJsonBean employeeBean, BindingResult result) {
-		JsonResponse<EmployeeJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<EmployeeJsonBean>("ERROR", "Form invalid");
 		}
@@ -92,7 +90,7 @@ public class EmployeeController {
 		} catch (Exception e) {
 			return new ListJsonResponse<EmployeeJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (employeeService.count()/11), 10);
+		return new ListJsonResponse<EmployeeJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -103,7 +101,7 @@ public class EmployeeController {
 		} catch (Exception e) {
 			return new ListJsonResponse<EmployeeJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (employeeService.count()/11), 10);
+		return new ListJsonResponse<EmployeeJsonBean>();
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)

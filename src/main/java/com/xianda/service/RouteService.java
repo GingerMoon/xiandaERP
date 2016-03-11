@@ -76,6 +76,21 @@ public class RouteService {
 		List<ProjectJsonBean> results = this.projectService.searchByName(projectName);
 		return results;
 	}
+	
+	public List<RouteJsonBean> searchByDepartureDestination(String departure, String destination) throws BusinessException {
+		List<RouteJsonBean> results = new ArrayList<RouteJsonBean>();
+		try {
+			List<Route> rows = this.routeRepository.findByDepartureAndDestination("%"+departure+"%", "%"+destination+"%", new PageRequest(0, 20)).getContent();
+			for (Route r : rows) {
+				RouteJsonBean element = new RouteJsonBean(r);
+				results.add(element);
+			}
+		} catch (Exception e) {
+			LOG.error("Exception thrown while listing routes" + e.getMessage());
+			throw new BusinessException("Exception thrown while listing cars"  + e.getMessage());
+		}
+		return results;
+	}
 
 	public List<RouteJsonBean> findById(long id) {
 		Route route = this.routeRepository.findById(id);

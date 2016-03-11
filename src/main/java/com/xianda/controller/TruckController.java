@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xianda.annotation.Layout;
 import com.xianda.service.TruckService;
 import com.xianda.web.json.bean.TruckJsonBean;
-import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
 @Controller
@@ -40,9 +38,8 @@ public class TruckController {
 		ListJsonResponse<TruckJsonBean> results;
 		List<TruckJsonBean> lists;
 		try {
-			long truckCount = truckService.count();
 			lists = truckService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<TruckJsonBean>("OK", lists, tbStartIndex, truckService.count());
+			results = new ListJsonResponse<TruckJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<TruckJsonBean>("ERROR", e.getMessage());
 		}
@@ -56,9 +53,8 @@ public class TruckController {
 		ListJsonResponse<TruckJsonBean> results;
 		List<TruckJsonBean> lists;
 		try {
-			long truckCount = truckService.count();
 			lists = truckService.findById(id);
-			results = new ListJsonResponse<TruckJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<TruckJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<TruckJsonBean>("ERROR", e.getMessage());
 		}
@@ -77,13 +73,12 @@ public class TruckController {
 		} catch (Exception e) {
 			return new ListJsonResponse<TruckJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (truckService.count()/11), 10);
+		return new ListJsonResponse<TruckJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<TruckJsonBean> update(@ModelAttribute TruckJsonBean truckBean, BindingResult result) {
-		JsonResponse<TruckJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<TruckJsonBean>("ERROR", "Form invalid");
 		}
@@ -92,7 +87,7 @@ public class TruckController {
 		} catch (Exception e) {
 			return new ListJsonResponse<TruckJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (truckService.count()/11), 10);
+		return new ListJsonResponse<TruckJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)

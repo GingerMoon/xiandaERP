@@ -8,7 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,7 +18,6 @@ import com.xianda.annotation.Layout;
 import com.xianda.service.RouteService;
 import com.xianda.web.json.bean.ProjectJsonBean;
 import com.xianda.web.json.bean.RouteJsonBean;
-import com.xianda.web.json.response.JsonResponse;
 import com.xianda.web.json.response.ListJsonResponse;
 
 @Controller
@@ -41,9 +39,8 @@ public class RouteController {
 		ListJsonResponse<RouteJsonBean> results;
 		List<RouteJsonBean> lists;
 		try {
-			long routeCount = routeService.count();
 			lists = routeService.findAll(tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<RouteJsonBean>("OK", lists, tbStartIndex, routeService.count());
+			results = new ListJsonResponse<RouteJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
@@ -57,9 +54,8 @@ public class RouteController {
 		ListJsonResponse<RouteJsonBean> results;
 		List<RouteJsonBean> lists;
 		try {
-			long routeCount = routeService.count();
 			lists = routeService.findById(id);
-			results = new ListJsonResponse<RouteJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<RouteJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
@@ -78,13 +74,12 @@ public class RouteController {
 		} catch (Exception e) {
 			return new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (routeService.count()/11), 10);
+		return new ListJsonResponse<RouteJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	@ResponseBody
 	public ListJsonResponse<RouteJsonBean> update(@ModelAttribute RouteJsonBean routeBean, BindingResult result) {
-		JsonResponse<RouteJsonBean> jsonJtableResponse;
 		if (result.hasErrors()) {
 			return new ListJsonResponse<RouteJsonBean>("ERROR", "Form invalid");
 		}
@@ -93,7 +88,7 @@ public class RouteController {
 		} catch (Exception e) {
 			return new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (routeService.count()/11), 10);
+		return new ListJsonResponse<RouteJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -104,7 +99,7 @@ public class RouteController {
 		} catch (Exception e) {
 			return new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
-		return get((int) (routeService.count()/11), 10);
+		return new ListJsonResponse<RouteJsonBean>();
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
@@ -130,6 +125,21 @@ public class RouteController {
 			results = new ListJsonResponse<ProjectJsonBean>("OK", lists);
 		} catch (Exception e) {
 			results = new ListJsonResponse<ProjectJsonBean>("ERROR", e.getMessage());
+		}
+
+		return results;
+	}
+	
+	@RequestMapping(value = "/searchByDepartureDestination", method = RequestMethod.GET)
+	@ResponseBody
+	public ListJsonResponse<RouteJsonBean> searchByDepartureDestination(@RequestParam String departure, @RequestParam String destination) {
+		ListJsonResponse<RouteJsonBean> results;
+		List<RouteJsonBean> lists;
+		try {
+			lists = routeService.searchByDepartureDestination(departure, destination);
+			results = new ListJsonResponse<RouteJsonBean>("OK", lists);
+		} catch (Exception e) {
+			results = new ListJsonResponse<RouteJsonBean>("ERROR", e.getMessage());
 		}
 
 		return results;

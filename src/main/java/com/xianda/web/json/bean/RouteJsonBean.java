@@ -19,7 +19,12 @@ public class RouteJsonBean {
 		
 	}
 	
+	public RouteJsonBean(String id) {
+		this.id = id;
+	}
+	
 	public RouteJsonBean(Route route) {
+		if(route == null) return;
 		this.id = new Long(route.getId()).toString();
 		this.departure = route.getDeparture();
 		this.destination = route.getDestination();

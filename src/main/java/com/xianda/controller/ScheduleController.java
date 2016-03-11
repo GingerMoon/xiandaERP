@@ -51,7 +51,7 @@ public class ScheduleController {
 		}
 		try {
 			lists = scheduleService.findAll(beginD, endD, tbStartIndex, tbPageSize);
-			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, tbStartIndex, scheduleService.count(beginD, endD));
+			results = new ListJsonResponse<ScheduleJsonBean>(lists, tbStartIndex);
 		} catch (Exception e) {
 			results = new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
@@ -66,7 +66,7 @@ public class ScheduleController {
 		List<ScheduleJsonBean> lists;
 		try {
 			lists = scheduleService.findById(id);
-			results = new ListJsonResponse<ScheduleJsonBean>("OK", lists, 0, 1);
+			results = new ListJsonResponse<ScheduleJsonBean>(lists, 0);
 		} catch (Exception e) {
 			results = new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
@@ -85,7 +85,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get(jsnScheduleBean.getDate(), jsnScheduleBean.getDate(), (int)(scheduleService.count()/11), 10);
+		return new ListJsonResponse<ScheduleJsonBean>();
 	}
 
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -99,7 +99,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get(jsnScheduleBean.getDate(), jsnScheduleBean.getDate(), (int)(scheduleService.count()/11), 10);
+		return new ListJsonResponse<ScheduleJsonBean>();
 	}
 
 	@RequestMapping(value = "/remove", method = RequestMethod.POST)
@@ -110,7 +110,7 @@ public class ScheduleController {
 		} catch (Exception e) {
 			return new ListJsonResponse<ScheduleJsonBean>("ERROR", e.getMessage());
 		}
-		return get(date, date, (int)(scheduleService.count()/11), 10);
+		return new ListJsonResponse<ScheduleJsonBean>();
 	}
 	
 	@RequestMapping(value = "/exportExcel", method = RequestMethod.GET)
